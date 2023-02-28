@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Students from './Data';
+import Task from './Task_6';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-     <Students/>
+     <Task/>
   </>
 );
 
