@@ -1,82 +1,127 @@
 
-import { students } from './Data'
+import { users } from './Data'
 import React from 'react'
 
-class Crud extends React.Component {
+import '../src/Task.css'
+
+class CrudUser extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: students,
-      name: 'name',
-      selected: 'name',
-      selektedUser: ' ',
+      data: users,
+      selectedValue: 'name',
+      ism: ' ',
+      stat: ' ',
+      age: +' ',
+      name: ' ',
+      isName:' '
     }
   }
-
 
   render() {
 
-    const onDelete = (id) => {
-      const res = this.state.data.filter((value) => value.id !== id)
+    // malumotlarni Search qilish
+    const onSearch = (e) => {
+      const { value } = e.target
+      const ras = users.filter((use) => use[this.state.selectedValue].toString().toLowerCase() === value.toString().toLowerCase())
+      this.setState({ ...this.state, data: ras })
+    }
+
+    // malumotlarni o'chirish
+    const onDelete = (user) => {
+      const res = this.state.data.filter((student) => student.id !== user.id)
+      console.log(res);
       this.setState({ ...this.state, data: res })
     }
 
-    const inpVAlue = (e) => {
-      const { value, name } = e.target
-      this.setState({ ...this.state, [name]: value })
-      console.log({ [name]: value });
-    }
-
-    const onSearch = (name) => {
-      const res = students.filter((username) => username[this.state.selected].toString().toLowerCase() === name.toString().toLowerCase())
-      this.setState({ ...this.state, data: res })
-    }
+    //  Id, Ism, Status, va age boyicha saralash
     const onSelect = (e) => {
       const { value } = e.target
-      this.setState({ ...this.state, selected: value })
+      console.log(value);
+      this.setState({ ...this.state, selectedValue: value })
     }
 
-    const onUpdate = (student) => {
-      this.setState({ ...this.state, selektedUser: student })
+    const onNameAdd = (e) => {
+       const {value} = e.target
+       this.setState({...this.state, ism: value})
+       console.log(this.state.ism);
     }
 
-    const inputSave = (e) =>{
-      const {value, name} = e.target
-      this.setState({...this.state, selektedUser: {...this.state.selektedUser, [name]: value}})
+    const onStatusAdd = (e) => {
+      const {value} = e.target
+      this.setState({...this.state, stat: value})
+      console.log(this.state.stat)
     }
 
-    const onSave = () => {
-      const res = this.state.data.map((student) => student.id === this.state.selektedUser.id ? this.state.selektedUser : student)
-      this.setState({...this.state, data: res, selektedUser: " "})
+    const onAgeAdd = (e) => {
+      const{value} = e.target
+      this.setState({...this.state, age: value})
+      console.log(this.state.age);
+
+    }
+
+    const userName = (name)=>{
+       
+    }
+
+    const onbtnDataAdd = (users) => {
+      console.log([...this.state.data, {id: 6, name:users.ism, status:users.stat, age:users.age}])
+      this.setState([...this.state.data, {...this.state.data, id: 6, name:users.ism, status:users.stat, age:users.age}])
+    }
+
+    const onUpdate = (e) => {
+      const {value, isname} = e.target
+      this.setState({...this.state, isName: {...this.state.isName, [isname]: value}})
     }
 
     return (
-      <div>
-        <input onChange={inpVAlue} name='name'></input>
-        <select onChange={onSelect}>
-          <option value='id'>id</option>
-          <option value='name' selected>name</option>
-        </select>
-        <button onClick={() => onSearch(this.state.name)}>Search</button>
-        {this.state.data.map((student) => (
-          <li key={student.id}>
-            {student.id} -
-            {!this.state.selektedUser ? student?.name : this.state.selektedUser.id === student.id ? <input  name='name' onChange={inputSave} value={this.state.selektedUser.name}></input> : student.name}
-            <button onClick={() => onDelete(student.id)}>Delete</button>
-            {this.state.selektedUser.id !== student.id
-              ?
-              <button onClick={() => onUpdate(student)}>Update</button>
-              :
-              <button onClick={onSave}>save</button>
-            }
-          </li>
-        ))}
-      </div>
+      <>
+        <div className='container'>
+          <div className='content'>
+            <h1 className='title'>Webbrain Academy</h1>
+            <div className='inp'>
+              <input placeholder='Search...' onChange={onSearch} ></input>
+              <select onChange={onSelect}>
+                <option value='id'>id</option>
+                <option value='name' selected>name</option>
+                <option value='status'>status</option>
+              </select>
+            </div>
+            <div className="shortContainer">
+              <div className='userTitle'>
+                <div>Id</div>
+                <div>Name</div>
+                <div>Status</div>
+                <div>age</div>
+                <div>Edit</div>
+              </div>
+            </div>
+            <div>
+              {
+                this.state.data.map((user) => (
+                  <div className='users' key={user.id}>
+                    <div className="userData" id="numberId"><input name='name' value={user.id}></input></div>
+                    <div className="userData text"><input  name='isname'value={user.name} onChange={userName}></input></div>
+                    <div className="userData text"><input name='name' value="Umarov"></input></div>
+                    <div className="userData " id="numberId"><input name='name' value={user.age}></input></div>
+                    <div><button className="del" onClick={() => onDelete(user)}>Del</button></div>
+
+                    <div><button className="del" onClick={() => onUpdate(user)} name='p'>Upd</button></div>
+
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+          <div className='footer'>
+            <input placeholder='name' onChange={onNameAdd} type="text" name='ism'></input>
+            <input placeholder='status' onChange={onStatusAdd} type='text' name='stat'></input>
+            <input placeholder='age' onChange={onAgeAdd} type='number' name='age'></input>
+            <button className='btn' onClick={() => onbtnDataAdd()} name='p'>Add</button>
+          </div>
+        </div>
+      </>
     )
   }
-
 }
-
-export default Crud
-
-
+export default CrudUser
