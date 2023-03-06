@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import CrudUser from './Task_7';
+import { Forms } from '../src/form/index';
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-    <CrudUser/>
+    <Forms/>
   </>
 );
 
