@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+:root {
+  --primary-green: #35736E;
+  --primary-yellow: #F9BF29;
+  --primary-grey: #6A6A6A;
+  --primary-black: #2F2F2F;
+  --primary-white: #fff;
+  --primary-light-green: #D9D9D9;
+  --primary-greens: #2d5248;
+  --font-family:  sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+}
+
+.h1 {
+  font-family: var(--font-family);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 54px;
+  line-height: 65px;
+  color: var(--primry-white);
+}
+
+h2 {
+  font-family: var(--font-family);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 41px;
+  color: var(--primry-black);
+}
+
+p {
+  font-family: var(--font-family);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--primary-yellow);
+}
